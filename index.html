@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Black Key</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #999999;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+        }
+
+        header p {
+            margin-top: 8px;
+            color: #ccc;
+        }
+
+        .contenedor {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .tarjeta h2 {
+            margin-bottom: 15px;
+        }
+
+        .saldo {
+            font-size: 35px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #111;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        #listaMovimientos {
+            margin-top: 25px;
+        }
+
+        #listaMovimientos h3 {
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-contenido {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-contenido h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-contenido input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .modal-botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Black Key</h1>
+
+        <p>Gestión de tu tarjeta de transporte</p>
+
+    </header>
+
+
+    <div class="contenedor">
+
+        <div class="tarjeta">
+
+            <h2>Mi tarjeta</h2>
+
+            <p>Saldo disponible</p>
+
+            <div class="saldo" id="saldo">
+                $0
+            </div>
+
+
+            <div class="botones">
+
+                <button onclick="consultarSaldo()">
+                    Consultar saldo
+                </button>
+
+                <button onclick="verMovimientos()">
+                    Movimientos
+                </button>
+
+                <button onclick="recargar()">
+                    Recargar
+                </button>
+
+                <button onclick="leerTarjeta()">
+                    Leer tarjeta NFC
+                </button>
+
+            </div>
+
+
+            <div id="listaMovimientos"></div>
+
+
+        </div>
+
+
+        <div id="modalRecarga" class="modal">
+
+            <div class="modal-contenido">
+
+                <h2>Recargar tarjeta</h2>
+
+                <p>Ingresa el valor de la recarga</p>
+
+                <input
+                    type="number"
+                    id="valorRecarga"
+                    placeholder="Ejemplo: 10000"
+                >
+
+                <div class="modal-botones">
+
+                    <button onclick="confirmarRecarga()">
+                        Recargar
+                    </button>
+
+                    <button onclick="cerrarRecarga()">
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer>
+
+            <p>Black Key © 2026</p>
+
+        </footer>
+
+    </div>
+
+
+    <script>
+
+        let saldo = Number(localStorage.getItem("saldo")) || 0;
+
+        let movimientos =
+            JSON.parse(localStorage.getItem("movimientos")) || [];
+
+
+        document.getElementById("saldo").textContent = "$" + saldo;
+
+
+        function consultarSaldo() {
+
+            alert("Tu saldo actual es: $" + saldo);
+
+        }
+
+
+        function verMovimientos() {
+
+            mostrarMovimientos();
+
+        }
+
+
+        function recargar() {
+
+            document.getElementById("modalRecarga").style.display = "flex";
+
+        }
+
+
+        function cerrarRecarga() {
+
+            document.getElementById("modalRecarga").style.display = "none";
+
+            document.getElementById("valorRecarga").value = "";
+
+        }
+
+
+        function confirmarRecarga() {
+
+            let valor =
+                Number(document.getElementById("valorRecarga").value);
+
+
+            if (valor > 0) {
+
+                saldo = saldo + valor;
+
+                movimientos.push(valor);
+
+                localStorage.setItem("saldo", saldo);
+
+                localStorage.setItem(
+                    "movimientos",
+                    JSON.stringify(movimientos)
+                );
+
+                document.getElementById("saldo").textContent =
+                    "$" + saldo;
+
+                mostrarMovimientos();
+
+                cerrarRecarga();
+
+                alert("Recarga realizada correctamente");
+
+            } else {
+
+                alert("Ingresa un valor válido.");
+
+            }
+
+        }
+
+
+        function mostrarMovimientos() {
+
+            let lista =
+                document.getElementById("listaMovimientos");
+
+
+            lista.innerHTML = "<h3>Movimientos</h3>";
+
+
+            if (movimientos.length === 0) {
+
+                lista.innerHTML +=
+                    "<p>No hay movimientos todavía.</p>";
+
+            } else {
+
+                for (
+                    let i = 0;
+                    i < movimientos.length;
+                    i++
+                ) {
+
+                    lista.innerHTML +=
+                        "<p>+ $" +
+                        movimientos[i] +
+                        " - Recarga</p>";
+
+                }
+
+            }
+
+        }
+
+
+        async function leerTarjeta() {
+
+            if (!("NDEFReader" in window)) {
+
+                alert(
+                    "Este celular o navegador no permite leer NFC desde la página."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                const ndef = new NDEFReader();
+
+                await ndef.scan();
+
+                alert(
+                    "NFC activado. Acerca la tarjeta al celular."
+                );
+
+
+                ndef.onreading = (event) => {
+
+                    alert(
+                        "¡Tarjeta NFC detectada!"
+                    );
+
+
+                    console.log(
+                        "Número de serie:",
+                        event.serialNumber
+                    );
+
+                };
+
+
+                ndef.onreadingerror = () => {
+
+                    alert(
+                        "No se pudo leer la tarjeta."
+                    );
+
+                };
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "No fue posible activar el lector NFC."
+                );
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
