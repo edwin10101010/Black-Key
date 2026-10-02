@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Black Key</title>
+
+    <style>
+
+        /* =====================================
+           CONFIGURACIÓN GENERAL
+        ====================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            color: #f5f5f5;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    #3b3b3b 0%,
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    #292929 0%,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050505,
+                    #111111,
+                    #1c1c1c,
+                    #080808
+                );
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* =====================================
+           ENCABEZADO
+        ====================================== */
+
+        header {
+            width: 100%;
+            padding: 22px 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #050505,
+                    #171717,
+                    #050505
+                );
+
+            border-bottom: 1px solid #3d3d3d;
+
+            box-shadow:
+                0 5px 25px rgba(0,0,0,0.7);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f2f2f2,
+                    #8d8d8d,
+                    #444444
+                );
+
+            color: #111;
+
+            font-size: 19px;
+            font-weight: bold;
+
+            box-shadow:
+                0 0 15px rgba(255,255,255,0.12),
+                inset 0 1px 2px #ffffff;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            letter-spacing: 4px;
+            color: #ffffff;
+        }
+
+        .logo span {
+            display: block;
+            margin-top: 4px;
+
+            color: #858585;
+
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+
+        /* =====================================
+           CONTENEDOR PRINCIPAL
+        ====================================== */
+
+        main {
+            width: 100%;
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 50px 20px;
+        }
+
+
+        /* =====================================
+           PRESENTACIÓN
+        ====================================== */
+
+        .presentacion {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .presentacion h2 {
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #8f8f8f,
+                    #ffffff
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .presentacion p {
+            color: #999999;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+
+        /* =====================================
+           TARJETA PRINCIPAL
+        ====================================== */
+
+        .tarjeta {
+            position: relative;
+
+            max-width: 650px;
+            min-height: 330px;
+
+            margin: 0 auto 40px;
+
+            padding: 32px;
+
+            border-radius: 26px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3c3c3c 0%,
+                    #242424 35%,
+                    #101010 70%,
+                    #303030 100%
+                );
+
+            border: 1px solid #5a5a5a;
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.85),
+                inset 0 1px 1px rgba(255,255,255,0.18),
+                inset 0 -1px 1px rgba(0,0,0,0.8);
+
+            transition: all 0.3s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-6px);
+
+            border-color: #777777;
+
+            box-shadow:
+                0 30px 70px rgba(0,0,0,0.9),
+                0 0 35px rgba(255,255,255,0.06);
+        }
+
+
+        /* Brillos decorativos */
+
+        .tarjeta::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.10),
+                    transparent 65%
+                );
+
+            top: -150px;
+            right: -80px;
+        }
+
+        .tarjeta::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.06),
+                    transparent 65%
+                );
+
+            bottom: -150px;
+            left: -80px;
+        }
+
+        .tarjeta-contenido {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* =====================================
+           PARTE SUPERIOR DE TARJETA
+        ====================================== */
+
+        .tarjeta-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tarjeta-titulo {
+            color: #bcbcbc;
+
+            font-size: 14px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .chip {
+            width: 50px;
+            height: 36px;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eeeeee,
+                    #999999,
+                    #555555
+                );
+
+            border: 1px solid #cccccc;
+
+            box-shadow:
+                inset 0 0 5px #333333,
+                0 2px 8px rgba(0,0,0,0.5);
+        }
+
+
+        /* =====================================
+           SALDO
+        ====================================== */
+
+        .saldo-area {
+            margin-top: 48px;
+        }
+
+        .saldo-label {
+            color: #999999;
+
+            font-size: 12px;
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+        }
+
+        .saldo {
+            font-size: 52px;
+            font-weight: bold;
+
+            color: #ffffff;
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 0 20px rgba(255,255,255,0.12);
+        }
+
+
+        /* =====================================
+           NÚMERO DE TARJETA
+        ====================================== */
+
+        .numero-tarjeta {
+            margin-top: 48px;
+
+            color: #9b9b9b;
+
+            font-size: 14px;
+
+            letter-spacing: 5px;
+        }
+
+
+        /* =====================================
+           ESTADO
+        ====================================== */
+
+        .estado {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 20px;
+
+            color: #999999;
+
+            font-size: 12px;
+        }
+
+        .estado-circulo {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #bbbbbb;
+
+            box-shadow:
+                0 0 8px rgba(255,255,255,0.5);
+        }
+
+
+        /* =====================================
+           BOTONES
+        ====================================== */
+
+        .acciones {
+            max-width: 720px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+        .boton {
+            position: relative;
+
+            overflow: hidden;
+
+            border: 1px solid #3f3f3f;
+
+            padding: 19px 15px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #292929,
+                    #151515
+                );
+
+            color: #eeeeee;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition: all 0.25s ease;
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .boton:hover {
+            transform: translateY(-4px);
+
+            border-color: #777777;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #414141,
+                    #1b1b1b
+                );
+
+            box-shadow:
+                0 14px 30px rgba(0,0,0,0.65),
+                0 0 20px rgba(255,255,255,0.04);
+        }
+
+        .boton:active {
+            transform: scale(0.97);
+        }
+
+        .boton-nfc {
+            grid-column: span 2;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3b3b3b,
+                    #181818,
+                    #303030
+                );
+        }
+
+
+        /* =====================================
+           SECCIÓN MOVIMIENTOS
+        ====================================== */
+
+        .movimientos-contenedor {
+            max-width: 720px;
+
+            margin: 35px auto 0;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #242424,
+                    #111111
+                );
+
+            border: 1px solid #3f3f3f;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.6);
+
+            display: none;
+        }
+
+        .movimientos-titulo {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            padding-bottom: 15px;
+
+            border-bottom: 1px solid #3a3a3a;
+        }
+
+        .movimientos-titulo h3 {
+            color: #ffffff;
+
+            font-size: 18px;
+
+            letter-spacing: 1px;
+        }
+
+        .cerrar-movimientos {
+            border: 1px solid #555555;
+
+            background: #1b1b1b;
+
+            color: #cccccc;
+
+            padding: 7px 12px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+        }
+
+        .cerrar-movimientos:hover {
+            background: #333333;
+        }
+
+        .movimiento {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 16px 5px;
+
+            border-bottom: 1px solid #303030;
+        }
+
+        .movimiento:last-child {
+            border-bottom: none;
+        }
+
+        .movimiento-info strong {
+            display: block;
+
+            color: #eeeeee;
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+        }
+
+        .movimiento-info span {
+            color: #777777;
+
+            font-size: 12px;
+        }
+
+        .movimiento-valor {
+            color: #ffffff;
+
+            font-weight: bold;
+
+            font-size: 15px;
+        }
+
+        .sin-movimientos {
+            text-align: center;
+
+            color: #777777;
+
+            padding: 25px 10px;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================
+           MODAL DE RECARGA
+        ====================================== */
+
+        #modalRecarga {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,0.82);
+
+            backdrop-filter: blur(10px);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 410px;
+
+            padding: 32px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #303030,
+                    #151515
+                );
+
+            border: 1px solid #555555;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.9);
+
+            text-align: center;
+        }
+
+        .modal h3 {
+            font-size: 25px;
+
+            margin-bottom: 10px;
+
+            color: #ffffff;
+        }
+
+        .modal p {
+            color: #999999;
+
+            margin-bottom: 22px;
+
+            font-size: 14px;
+        }
+
+        .modal input {
+            width: 100%;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            border: 1px solid #555555;
+
+            background: #0b0b0b;
+
+            color: #ffffff;
+
+            font-size: 18px;
+
+            outline: none;
+
+            margin-bottom: 16px;
+
+            text-align: center;
+        }
+
+        .modal input:focus {
+            border-color: #aaaaaa;
+
+            box-shadow:
+                0 0 15px rgba(255,255,255,0.05);
+        }
+
+        .modal-botones {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .modal-botones button {
+            flex: 1;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .btn-confirmar {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #a5a5a5
+                );
+
+            color: #111111;
+        }
+
+        .btn-cancelar {
+            background: #333333;
+
+            color: #eeeeee;
+
+            border:
+                1px solid #555555 !important;
+        }
+
+        .modal-botones button:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================
+           PIE DE PÁGINA
+        ====================================== */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #686868;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =====================================
+           CELULAR
+        ====================================== */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 18px;
+            }
+
+            .logo h1 {
+                font-size: 19px;
+
+                letter-spacing: 3px;
+            }
+
+            .logo span {
+                font-size: 9px;
+            }
+
+            .logo-icon {
+                width: 42px;
+                height: 42px;
+            }
+
+            main {
+                padding: 35px 15px;
+            }
+
+            .presentacion h2 {
+                font-size: 32px;
+            }
+
+            .presentacion p {
+                font-size: 14px;
+            }
+
+            .tarjeta {
+                min-height: 290px;
+
+                padding: 25px;
+            }
+
+            .saldo {
+                font-size: 42px;
+            }
+
+            .numero-tarjeta {
+                font-size: 12px;
+
+                letter-spacing: 3px;
+            }
+
+            .acciones {
+                grid-template-columns: 1fr;
+            }
+
+            .boton-nfc {
+                grid-column: span 1;
+            }
+
+            .boton {
+                padding: 18px;
+            }
+
+            .movimientos-contenedor {
+                padding: 20px;
+            }
+
+            .movimiento {
+                gap: 10px;
+            }
+
+            .movimiento-valor {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         ENCABEZADO
+    ====================================== -->
+
+    <header>
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                BK
+            </div>
+
+            <div>
+
+                <h1>
+                    BLACK KEY
+                </h1>
+
+                <span>
+                    TU TARJETA, SIEMPRE CONTIGO
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         CONTENIDO PRINCIPAL
+    ====================================== -->
+
+    <main>
+
+
+        <!-- PRESENTACIÓN -->
+
+        <div class="presentacion">
+
+            <h2>
+                Mi tarjeta
+            </h2>
+
+            <p>
+                Administra tu saldo y movimientos de forma sencilla
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================
+             TARJETA
+        ================================== -->
+
+        <div class="tarjeta">
+
+            <div class="tarjeta-contenido">
+
+                <div class="tarjeta-superior">
+
+                    <div class="tarjeta-titulo">
+                        BLACK KEY
+                    </div>
+
+                    <div class="chip"></div>
+
+                </div>
+
+
+                <div class="saldo-area">
+
+                    <div class="saldo-label">
+                        SALDO DISPONIBLE
+                    </div>
+
+                    <div
+                        class="saldo"
+                        id="saldo"
+                    >
+                        $0
+                    </div>
+
+                </div>
+
+
+                <div class="numero-tarjeta">
+                    •••• &nbsp; •••• &nbsp; •••• &nbsp; 0001
+                </div>
+
+
+                <div class="estado">
+
+                    <div class="estado-circulo"></div>
+
+                    Tarjeta activa
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             BOTONES
+        ================================== -->
+
+        <div class="acciones">
+
+            <button
+                class="boton"
+                onclick="consultarSaldo()"
+            >
+                💰 Consultar saldo
+            </button>
+
+
+            <button
+                class="boton"
+                onclick="verMovimientos()"
+            >
+                📋 Movimientos
+            </button>
+
+
+            <button
+                class="boton"
+                onclick="abrirRecarga()"
+            >
+                ➕ Recargar
+            </button>
+
+
+            <button
+                class="boton boton-nfc"
+                onclick="leerNFC()"
+            >
+                📡 Leer tarjeta NFC
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             MOVIMIENTOS
+        ================================== -->
+
+        <section
+            id="seccionMovimientos"
+            class="movimientos-contenedor"
+        >
+
+            <div class="movimientos-titulo">
+
+                <h3>
+                    Últimos movimientos
+                </h3>
+
+                <button
+                    class="cerrar-movimientos"
+                    onclick="ocultarMovimientos()"
+                >
+                    Ocultar
+                </button>
+
+            </div>
+
+
+            <div id="listaMovimientos">
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================
+         MODAL DE RECARGA
+    ====================================== -->
+
+    <div id="modalRecarga">
+
+        <div class="modal">
+
+            <h3>
+                Recargar tarjeta
+            </h3>
+
+            <p>
+                Ingresa el valor que deseas recargar.
+            </p>
+
+
+            <input
+                type="number"
+                id="valorRecarga"
+                placeholder="Ejemplo: 10000"
+                min="1"
+            >
+
+
+            <div class="modal-botones">
+
+                <button
+                    class="btn-cancelar"
+                    onclick="cerrarRecarga()"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    class="btn-confirmar"
+                    onclick="confirmarRecarga()"
+                >
+                    Recargar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         PIE DE PÁGINA
+    ====================================== -->
+
+    <footer>
+
+        BLACK KEY © 2026
+
+    </footer>
+
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script>
+
+        /* =================================
+           VARIABLES
+        ================================== */
+
+        let saldoActual = 0;
+
+        let movimientos = [];
+
+
+        /* =================================
+           ACTUALIZAR SALDO
+        ================================== */
+
+        function actualizarSaldo() {
+
+            document.getElementById("saldo").textContent =
+                "$" +
+                saldoActual.toLocaleString("es-CO");
+
+        }
+
+
+        /* =================================
+           CONSULTAR SALDO
+        ================================== */
+
+        function consultarSaldo() {
+
+            alert(
+                "Tu saldo actual es: $" +
+                saldoActual.toLocaleString("es-CO")
+            );
+
+        }
+
+
+        /* =================================
+           MOSTRAR MOVIMIENTOS
+        ================================== */
+
+        function verMovimientos() {
+
+            const seccion =
+                document.getElementById(
+                    "seccionMovimientos"
+                );
+
+            const lista =
+                document.getElementById(
+                    "listaMovimientos"
+                );
+
+
+            lista.innerHTML = "";
+
+
+            if (movimientos.length === 0) {
+
+                lista.innerHTML = `
+                    <div class="sin-movimientos">
+                        Todavía no tienes movimientos.
+                    </div>
+                `;
+
+            } else {
+
+                movimientos.forEach(
+                    function(movimiento) {
+
+                        const elemento =
+                            document.createElement("div");
+
+                        elemento.className =
+                            "movimiento";
+
+                        elemento.innerHTML = `
+
+                            <div class="movimiento-info">
+
+                                <strong>
+                                    ${movimiento.tipo}
+                                </strong>
+
+                                <span>
+                                    ${movimiento.fecha}
+                                </span>
+
+                            </div>
+
+                            <div class="movimiento-valor">
+                                +$${movimiento.valor.toLocaleString("es-CO")}
+                            </div>
+
+                        `;
+
+                        lista.appendChild(elemento);
+
+                    }
+                );
+
+            }
+
+
+            seccion.style.display = "block";
+
+
+            seccion.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+
+        /* =================================
+           OCULTAR MOVIMIENTOS
+        ================================== */
+
+        function ocultarMovimientos() {
+
+            document.getElementById(
+                "seccionMovimientos"
+            ).style.display = "none";
+
+        }
+
+
+        /* =================================
+           ABRIR RECARGA
+        ================================== */
+
+        function abrirRecarga() {
+
+            document.getElementById(
+                "modalRecarga"
+            ).style.display = "flex";
+
+
+            document.getElementById(
+                "valorRecarga"
+            ).value = "";
+
+
+            document.getElementById(
+                "valorRecarga"
+            ).focus();
+
+        }
+
+
+        /* =================================
+           CERRAR RECARGA
+        ================================== */
+
+        function cerrarRecarga() {
+
+            document.getElementById(
+                "modalRecarga"
+            ).style.display = "none";
+
+        }
+
+
+        /* =================================
+           CONFIRMAR RECARGA
+        ================================== */
+
+        function confirmarRecarga() {
+
+            let valor =
+                Number(
+                    document.getElementById(
+                        "valorRecarga"
+                    ).value
+                );
+
+
+            if (!valor || valor <= 0) {
+
+                alert(
+                    "Por favor ingresa un valor válido."
+                );
+
+                return;
+
+            }
+
+
+            saldoActual += valor;
+
+
+            const fecha =
+                new Date().toLocaleString(
+                    "es-CO",
+                    {
+                        dateStyle: "short",
+                        timeStyle: "short"
+                    }
+                );
+
+
+            movimientos.unshift({
+
+                tipo: "Recarga",
+
+                valor: valor,
+
+                fecha: fecha
+
+            });
+
+
+            actualizarSaldo();
+
+
+            cerrarRecarga();
+
+
+            alert(
+                "Recarga realizada correctamente.\n\n" +
+                "Nuevo saldo: $" +
+                saldoActual.toLocaleString("es-CO")
+            );
+
+        }
+
+
+        /* =================================
+           NFC
+        ================================== */
+
+        async function leerNFC() {
+
+            if (!("NDEFReader" in window)) {
+
+                alert(
+                    "Tu navegador no permite leer tarjetas NFC mediante esta página."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                const ndef =
+                    new NDEFReader();
+
+
+                await ndef.scan();
+
+
+                alert(
+                    "Acerca la tarjeta NFC al teléfono."
+                );
+
+
+                ndef.onreading = event => {
+
+                    alert(
+                        "¡Tarjeta NFC detectada!"
+                    );
+
+
+                    console.log(
+                        "Tarjeta NFC detectada:",
+                        event.serialNumber
+                    );
+
+                };
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                alert(
+                    "No fue posible iniciar la lectura NFC."
+                );
+
+            }
+
+        }
+
+
+        /* =================================
+           INICIO
+        ================================== */
+
+        actualizarSaldo();
+
+    </script>
+
+
+</body>
+
+</html>
